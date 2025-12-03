@@ -37,10 +37,13 @@ public class CardSelectionHandler {
                 new SlownessEffect(1).apply(p);
             }
             case "tank_card_2" -> {
-                new SlowFallingEffect().apply(p);
-                WeaponRestrictionEffect.apply(p);
+                PlayerDataHandler.enableFallDamageReduction(p);
             }
-            case "tank_card_3" -> EmergencyRegenEffect.apply(p);
+            case "tank_card_3" -> {
+                // Активируем ОБА эффекта
+                ru.rebey.eventmod.data.PlayerDataHandler.enableShieldKnockback(p);
+                EventMod.LOGGER.info("Applied Tank Card 3: Shield Knockback + Hunger to {}", p.getName().getString());
+            }
             default -> EventMod.LOGGER.warn("Unknown tank card: {}", id);
         }
     }
@@ -58,5 +61,14 @@ public class CardSelectionHandler {
             }
             default -> EventMod.LOGGER.warn("Unknown assassin card: {}", id);
         }
+    }
+
+    private static void applyTankCard2(ServerPlayerEntity player) {
+        EventMod.LOGGER.info("Applying Tank Card 2: 50% fall damage reduction");
+        ru.rebey.eventmod.data.PlayerDataHandler.enableFallDamageReduction(player);
+    }
+    private static void applyTankCard3(ServerPlayerEntity player) {
+        EventMod.LOGGER.info("Applying Tank Card 3: Shield Knockback + Hunger");
+        PlayerDataHandler.enableShieldKnockback(player); // ← должно быть именно так
     }
 }

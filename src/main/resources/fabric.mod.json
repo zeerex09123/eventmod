@@ -1,6 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "eventmod",
+    "package": "ru.rebey.eventmod.mixin",
 	"version": "${version}",
 	"name": "EventMod",
 	"description": "This is an example description! Tell everyone what your mod is about!",
@@ -19,9 +20,9 @@
 		"fabric-datagen": ["ru.rebey.eventmod.EventModDataGenerator"],
         "client" : ["ru.rebey.eventmod.EventModClient"]
 	},
-	"mixins": [
-		"eventmod.mixins.json"
-	],
+    "mixins": [
+      "eventmod.mixins.json"
+    ],
 	"depends": {
 		"fabricloader": ">=0.18.1",
 		"minecraft": "~1.21",
