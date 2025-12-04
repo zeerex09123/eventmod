@@ -1,15 +1,22 @@
-// src/main/java/ru/rebey/eventmod/card/CardRegistry.java
 package ru.rebey.eventmod.card;
 
 import net.minecraft.text.Text;
 import ru.rebey.eventmod.data.PlayerClass;
+import ru.rebey.eventmod.EventMod;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Реестр карточек для различных классов игроков.
+ * Хранит определения карточек с их ID, названиями и описаниями эффектов.
+ */
 public class CardRegistry {
 
-    // 🔑 Ключевое: public static class
+    /**
+     * Класс, представляющий опцию карточки.
+     * Содержит ID, название, описание баффа и дебаффа.
+     */
     public static class CardOption {
         private final String id;
         private final Text name;
@@ -29,10 +36,11 @@ public class CardRegistry {
         public Text debuffDescription() { return debuffDescription; }
     }
 
+    // Карта для хранения карточек по классам игроков
     private static final Map<PlayerClass, CardOption[]> CARDS = new HashMap<>();
 
     static {
-        // Пример для Танка
+        // Инициализация карточек для Танка
         CARDS.put(PlayerClass.TANK, new CardOption[]{
                 new CardOption(
                         "tank_card_1",
@@ -54,7 +62,7 @@ public class CardRegistry {
                 ),
         });
 
-        // Добавь остальные классы по аналогии
+        // Инициализация карточек для Ассасина
         CARDS.put(PlayerClass.ASSASSIN, new CardOption[]{
                 new CardOption(
                         "assassin_card_1",
@@ -69,9 +77,18 @@ public class CardRegistry {
                         Text.literal("Только кожаная броня")
                 )
         });
+
+        EventMod.LOGGER.info("[CardRegistry] Инициализированы карточки для {} классов", CARDS.size());
     }
 
+    /**
+     * Получает массив карточек для указанного класса игрока.
+     * @param playerClass класс игрока
+     * @return массив карточек или пустой массив, если карточек нет
+     */
     public static CardOption[] getCardsFor(PlayerClass playerClass) {
-        return CARDS.getOrDefault(playerClass, new CardOption[0]);
+        CardOption[] cards = CARDS.getOrDefault(playerClass, new CardOption[0]);
+        EventMod.LOGGER.debug("[CardRegistry] Получено {} карточек для класса {}", cards.length, playerClass);
+        return cards;
     }
 }

@@ -4,9 +4,11 @@
   "package": "ru.rebey.eventmod.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AssassinDamageMixin",
     "LivingEntityFallMixin",
     "LivingEntityMixin",
-    "ServerPlayerEntityMixin"
+    "ServerPlayerEntityMixin",
+    "TankMovementMixin"
   ],
   "client": [],
   "server": []
